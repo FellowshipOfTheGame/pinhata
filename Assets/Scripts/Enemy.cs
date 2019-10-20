@@ -31,4 +31,8 @@ public class Enemy : MonoBehaviour {
     public virtual void Attack() {
         Debug.Log("Enemy Action");
     }
+
+    private void OnCollisionEnter(Collision collision) {
+     
+    }
 }

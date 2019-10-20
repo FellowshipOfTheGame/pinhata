@@ -20,7 +20,6 @@ public class AttackState : BaseState {
 
         if(_attackReadyTimer <= 0f) {
             _enemy.Attack();
-            Debug.Log("Attack");
         }
 
         return null;

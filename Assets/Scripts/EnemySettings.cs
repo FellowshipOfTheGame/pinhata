@@ -7,7 +7,7 @@ public class EnemySettings : MonoBehaviour {
     [SerializeField] private float speed = 4f;
     public static float Speed => Instance.speed;
 
-    [SerializeField] private float aggroRadius = 1f;
+    [SerializeField] private float aggroRadius = 5f;
     public static float AggroRadius => Instance.aggroRadius;
 
     [SerializeField] private float attackRange = 2f;
