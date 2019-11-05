@@ -1,9 +1,0 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Player : MonoBehaviour {
-
-    public Transform Target { get; private set; }
-
-}
