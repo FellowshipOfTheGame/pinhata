@@ -5,20 +5,20 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour {
 
     [SerializeField]
-    private int MaxHealth = 50;
+    private int MaxHealth = 20;
 
-    private int health;
+    public int health;
 
     private void Awake() {
         health = MaxHealth;
     }
 
-    private bool Alive() {
+    public bool Alive() {
         return health > 0;
     }
 
     private void Die() {
-
+        Debug.Log("Die");
     }
 
     public void TakeDamage(int damage) {
@@ -26,5 +26,14 @@ public class PlayerHealth : MonoBehaviour {
 
         if (!Alive())
             Die();
+    }
+
+    public void Cure(int cure) {
+        if (health + cure >= MaxHealth) {
+            health = MaxHealth;
+        }
+        else {
+            health += cure;
+        }
     }
 }

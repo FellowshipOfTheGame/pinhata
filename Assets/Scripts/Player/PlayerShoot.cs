@@ -6,11 +6,11 @@ using UnityEngine;
 public class PlayerShoot : MonoBehaviour {
 
     [SerializeField]
-    private float Damage = 10f;
+    private int Damage = 2;
     [SerializeField]
     private float ShootDelay = 2f;
     [SerializeField]
-    private Transform FirePoint;
+    private Transform FirePoint = null;
 
     private float timer;
     private PlayerHealth health;
@@ -41,13 +41,14 @@ public class PlayerShoot : MonoBehaviour {
 
         // Hit enemy
         if(Physics.Raycast(ray, out hitInfo, 100)) {
-            // var enemy = hitInfo.collider.gameObject.GetComponent<Enemy>();
-            // if(enemy != null) enemy.TakeDamage(Damage);
-            hitInfo.collider.gameObject.SetActive(false);
+            var enemy = hitInfo.collider.gameObject.GetComponent<EnemyHealth>();
+            if (enemy != null) {
+                enemy.TakeDamage(Damage);
+            }
         }
     }
 
     private bool CanShoot() {
-        return (timer >= ShootDelay);
+        return (health.Alive() && timer >= ShootDelay);
     }
 }
