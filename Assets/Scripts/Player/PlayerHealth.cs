@@ -7,7 +7,7 @@ public class PlayerHealth : MonoBehaviour {
     [SerializeField]
     private int MaxHealth = 20;
 
-    public int health;
+    private int health;
 
     private void Awake() {
         health = MaxHealth;
@@ -18,7 +18,8 @@ public class PlayerHealth : MonoBehaviour {
     }
 
     private void Die() {
-        Debug.Log("Die");
+        Debug.Log("Player Dead");
+        GameManager.Instance.Reload();
     }
 
     public void TakeDamage(int damage) {

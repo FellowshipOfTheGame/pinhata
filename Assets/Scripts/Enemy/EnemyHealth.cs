@@ -23,6 +23,7 @@ public class EnemyHealth : MonoBehaviour {
     }
 
     private void Die() {
+        EnemyManager.Instance.EnemyDied();
         gameObject.SetActive(false);
     }
 
