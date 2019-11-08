@@ -11,9 +11,12 @@ public class PlayerHealth : MonoBehaviour {
 
     private PinhataAnimHandle anim;
 
+    private bool invincible;
+
     private void Awake() {
         health = MaxHealth;
         anim = GetComponent<PlayerMovement>().playerAnim;
+        invincible = false;
     }
 
     public bool Alive() {
@@ -21,17 +24,21 @@ public class PlayerHealth : MonoBehaviour {
     }
 
     private void Die() {
+        invincible = true;
         Debug.Log("Player Dead");
         anim.Die();
-        //GameManager.Instance.Reload();
+        GameManager.Instance.Invoke("Reload", 3.0f);
 
     }
 
     public void TakeDamage(int damage) {
+        if(!invincible){
         health -= damage;
 
         if (!Alive())
             Die();
+
+        }
     }
 
     public void Cure(int cure) {
