@@ -14,10 +14,15 @@ public class PlayerShoot : MonoBehaviour {
 
     private float timer;
     private PlayerHealth health;
+    private PinhataAnimHandle anim;
+
+    public float bulletSpeed;
+    public GameObject bullet;
 
     private void Awake() {
         timer = 0f;
         health = GetComponent<PlayerHealth>();
+        anim = GetComponent<PlayerMovement>().playerAnim;
     }
 
     private void Update() {
@@ -36,8 +41,13 @@ public class PlayerShoot : MonoBehaviour {
     private void FireGun() {
         Debug.DrawRay(FirePoint.position, FirePoint.forward * 100, Color.red, 2f);
 
+        anim.Shoot();
         Ray ray = new Ray(FirePoint.position, FirePoint.forward);
         RaycastHit hitInfo;
+
+        GameObject b = Instantiate(bullet);
+        b.transform.position = FirePoint.position;
+        b.GetComponent<Rigidbody>().velocity = this.transform.forward * bulletSpeed;
 
         // Hit enemy
         if(Physics.Raycast(ray, out hitInfo, 100)) {
