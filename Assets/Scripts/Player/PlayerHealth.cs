@@ -9,8 +9,11 @@ public class PlayerHealth : MonoBehaviour {
 
     private int health;
 
+    private PinhataAnimHandle anim;
+
     private void Awake() {
         health = MaxHealth;
+        anim = GetComponent<PlayerMovement>().playerAnim;
     }
 
     public bool Alive() {
@@ -19,7 +22,9 @@ public class PlayerHealth : MonoBehaviour {
 
     private void Die() {
         Debug.Log("Player Dead");
-        GameManager.Instance.Reload();
+        anim.Die();
+        //GameManager.Instance.Reload();
+
     }
 
     public void TakeDamage(int damage) {

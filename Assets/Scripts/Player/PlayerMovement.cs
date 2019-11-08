@@ -6,8 +6,6 @@ public class PlayerMovement : MonoBehaviour {
 
     public PinhataAnimHandle playerAnim;
 
-    public float deadZone;
-
     [SerializeField]
     private float Speed = 5f;
     [SerializeField]
@@ -24,7 +22,7 @@ public class PlayerMovement : MonoBehaviour {
         var movement = new Vector3(h, 0, v);
         transform.position += movement * Time.deltaTime * Speed;
         // Turn
-        if (movement.magnitude > deadZone) {
+        if (movement.magnitude > 0) {
             Quaternion newDirection = Quaternion.LookRotation(movement);
             transform.rotation = Quaternion.Slerp(transform.rotation, newDirection, Time.deltaTime * TurnSpeed);
             playerAnim.Move(movement);

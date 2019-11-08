@@ -37,11 +37,15 @@ public class PinhataAnimHandle : MonoBehaviour {
 
     public void Stop(){
         anim.SetBool("move", false);
-        anim.ResetTrigger("refreshMove");
+        //anim.ResetTrigger("refreshMove");
         anim.SetInteger("dir", -1);
     }
 
     public void Shoot(){
         anim.SetTrigger("shoot");
+    }
+
+    public void Die(){
+        anim.SetTrigger("die");
     }
 }
