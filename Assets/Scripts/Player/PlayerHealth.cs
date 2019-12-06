@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour {
 
+    public delegate void OnHealthChange(int amount);
+    public OnHealthChange onHealthChange;
+
     [SerializeField]
-    private int MaxHealth = 20;
+    public int MaxHealth = 20;
 
     private int health;
 
@@ -15,6 +18,7 @@ public class PlayerHealth : MonoBehaviour {
 
     private void Awake() {
         health = MaxHealth;
+        onHealthChange?.Invoke(health);
         anim = GetComponent<PlayerMovement>().playerAnim;
         invincible = false;
     }
@@ -39,6 +43,7 @@ public class PlayerHealth : MonoBehaviour {
             Die();
 
         }
+        onHealthChange?.Invoke(health);
     }
 
     public void Cure(int cure) {
@@ -48,5 +53,6 @@ public class PlayerHealth : MonoBehaviour {
         else {
             health += cure;
         }
+        onHealthChange?.Invoke(health);
     }
 }
