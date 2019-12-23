@@ -15,6 +15,7 @@ public class PlayerShoot : MonoBehaviour {
     private float timer;
     private PlayerHealth health;
     private PinhataAnimHandle anim;
+    private PlayerInputAction inputActions;
 
     public float bulletSpeed;
     public GameObject bullet;
@@ -23,18 +24,22 @@ public class PlayerShoot : MonoBehaviour {
         timer = 0f;
         health = GetComponent<PlayerHealth>();
         anim = GetComponent<PlayerMovement>().playerAnim;
+        inputActions = new PlayerInputAction();
+        inputActions.PlayerControls.Shoot.performed += ctx => TryShoot();
     }
 
     private void Update() {
         timer += Time.deltaTime;
+    }
 
-        if(CanShoot()) {
-            if(Input.GetButtonDown("Fire1")) {
-                timer = 0f;
-                // Bullets are player's health
-                health.TakeDamage(1);
-                FireGun();
-            }
+    private void TryShoot()
+    {
+        if (CanShoot())
+        {
+            timer = 0f;
+            // Bullets are player's health
+            health.TakeDamage(1);
+            FireGun();
         }
     }
 
@@ -60,5 +65,15 @@ public class PlayerShoot : MonoBehaviour {
 
     private bool CanShoot() {
         return (health.Alive() && timer >= ShootDelay);
+    }
+
+    private void OnEnable()
+    {
+        inputActions.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Disable();
     }
 }

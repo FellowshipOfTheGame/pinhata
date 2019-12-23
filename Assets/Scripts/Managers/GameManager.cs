@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager Instance;
 
+    public CameraFollowComponent cameraFollow;
+    public Transform playerTransform;
+
     private int level;
     private bool startSpawn;
     private float timer;
@@ -21,6 +24,9 @@ public class GameManager : MonoBehaviour {
         timer = 0f;
         startSpawn = false;
         level = 0;
+
+        //Camera Follow Setup
+        cameraFollow.Setup(() => playerTransform.position);
     }
 
     private void Update() {
