@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6513837980596063031}
   - component: {fileID: 6513837980596063030}
   - component: {fileID: 1789368901}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -160,6 +160,9 @@ MonoBehaviour:
   Damage: 5
   ShootDelay: 0.5
   FirePoint: {fileID: 6513837981789788791}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1
   bulletSpeed: 250
   bullet: {fileID: 7335112553584817998, guid: 8d5b3b49e7d378641a50f7357494e1de, type: 3}
 --- !u!114 &1789368901
@@ -176,7 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 9d1446e055aef8f4eb3a6d1dbb04a880,
     type: 3}
-  m_NotificationBehavior: 3
+  m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -197,12 +200,11 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 3fbd443e-1291-4068-bcf9-dd3d682824e1
     m_ActionName: Player Controls/Shoot[/Keyboard/space,/Mouse/leftButton]
-  m_NeverAutoSwitchControlSchemes: 1
+  m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player Controls
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 3197973999760445716, guid: 80df664285b75a947bfeeae994f5d6b3,
-    type: 3}
+  m_Camera: {fileID: 0}
 --- !u!1 &6513837981789788790
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,7 +214,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6513837981789788791}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 
     public PinhataAnimHandle playerAnim;
-    public PlayerInputAction inputActions;
+    //public PlayerInputAction inputActions;
 
     [SerializeField]
     private float Speed = 5f;
@@ -16,15 +16,14 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField]
     private Vector2 rotationInput;
 
-    private void Awake()
+    private void OnMove(UnityEngine.InputSystem.InputValue value)
     {
-        inputActions = new PlayerInputAction();
+        movementInput = value.Get<Vector2>();
+    }
 
-        inputActions.PlayerControls.Move.performed += ctx => movementInput = ctx.ReadValue<Vector2>();
-        inputActions.PlayerControls.Move.canceled += ctx => movementInput = Vector2.zero;
-
-        inputActions.PlayerControls.Rotate.performed += ctx => rotationInput = ctx.ReadValue<Vector2>();
-        inputActions.PlayerControls.Rotate.canceled += ctx => rotationInput = Vector2.zero;
+    private void OnRotate(UnityEngine.InputSystem.InputValue value)
+    {
+        rotationInput = value.Get<Vector2>();
     }
 
     private void Update() {
@@ -47,15 +46,5 @@ public class PlayerMovement : MonoBehaviour {
         }else{
             playerAnim.Stop();
         }
-    }
-
-    private void OnEnable()
-    {
-        inputActions.Enable();
-    }
-
-    private void OnDisable()
-    {
-        inputActions.Disable();
     }
 }

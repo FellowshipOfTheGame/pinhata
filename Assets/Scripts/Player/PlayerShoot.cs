@@ -11,11 +11,12 @@ public class PlayerShoot : MonoBehaviour {
     private float ShootDelay = 2f;
     [SerializeField]
     private Transform FirePoint = null;
+    [SerializeField]
+    private LayerMask layerMask;
 
     private float timer;
     private PlayerHealth health;
     private PinhataAnimHandle anim;
-    private PlayerInputAction inputActions;
 
     public float bulletSpeed;
     public GameObject bullet;
@@ -24,15 +25,13 @@ public class PlayerShoot : MonoBehaviour {
         timer = 0f;
         health = GetComponent<PlayerHealth>();
         anim = GetComponent<PlayerMovement>().playerAnim;
-        inputActions = new PlayerInputAction();
-        inputActions.PlayerControls.Shoot.performed += ctx => TryShoot();
     }
 
     private void Update() {
         timer += Time.deltaTime;
     }
 
-    private void TryShoot()
+    private void OnShoot()
     {
         if (CanShoot())
         {
@@ -55,7 +54,7 @@ public class PlayerShoot : MonoBehaviour {
         b.GetComponent<Rigidbody>().velocity = this.transform.forward * bulletSpeed;
 
         // Hit enemy
-        if(Physics.Raycast(ray, out hitInfo, 100)) {
+        if(Physics.Raycast(ray, out hitInfo, 100, layerMask)) {
             var enemy = hitInfo.collider.gameObject.GetComponent<EnemyHealth>();
             if (enemy != null) {
                 enemy.TakeDamage(Damage);
@@ -65,15 +64,5 @@ public class PlayerShoot : MonoBehaviour {
 
     private bool CanShoot() {
         return (health.Alive() && timer >= ShootDelay);
-    }
-
-    private void OnEnable()
-    {
-        inputActions.Enable();
-    }
-
-    private void OnDisable()
-    {
-        inputActions.Disable();
     }
 }

@@ -5,13 +5,13 @@ using UnityEngine;
 public class LifeTime : MonoBehaviour
 {
     [SerializeField]
-    private float lifeTime = 0f;
+    public float lifeTime = 0f;
 
     private Timer timer;
 
     void Start()
     {
-        timer = GetComponent<Timer>();
+        timer = gameObject.AddComponent<Timer>();
         timer.onCooldownEnded += AutoDestroy;
         timer.SetCooldown(lifeTime);
         timer.StartTimer();

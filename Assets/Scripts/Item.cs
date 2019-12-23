@@ -12,7 +12,8 @@ public class Item : MonoBehaviour {
     private float awokeTime;
 
     private void Awake() {
-        awokeTime = Time.deltaTime;
+        LifeTime lifeTime = gameObject.AddComponent<LifeTime>();
+        lifeTime.lifeTime = AvailableTime;
     }
 
     private void Update() {
