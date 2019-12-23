@@ -19,8 +19,12 @@ public class PlayerMovement : MonoBehaviour {
     private void Awake()
     {
         inputActions = new PlayerInputAction();
+
         inputActions.PlayerControls.Move.performed += ctx => movementInput = ctx.ReadValue<Vector2>();
+        inputActions.PlayerControls.Move.canceled += ctx => movementInput = Vector2.zero;
+
         inputActions.PlayerControls.Rotate.performed += ctx => rotationInput = ctx.ReadValue<Vector2>();
+        inputActions.PlayerControls.Rotate.canceled += ctx => rotationInput = Vector2.zero;
     }
 
     private void Update() {
@@ -41,8 +45,6 @@ public class PlayerMovement : MonoBehaviour {
             transform.rotation = Quaternion.Slerp(transform.rotation, newDirection, Time.deltaTime * TurnSpeed);
             playerAnim.Move(movement);
         }else{
-            movement = Vector3.zero;
-            rotation = Vector3.zero;
             playerAnim.Stop();
         }
     }
