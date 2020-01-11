@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 909547678366181174}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -133,7 +133,7 @@ MonoBehaviour:
   MaxHealth: 10
   ItemPrefab: {fileID: 4188259684351600086, guid: 1a9377229cc47ac4ebc2d776ee177753,
     type: 3}
-  DropItemRate: 1
+  DropItemRate: 0.8
 --- !u!114 &909547678366181173
 MonoBehaviour:
   m_ObjectHideFlags: 0

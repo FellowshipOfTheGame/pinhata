@@ -11,6 +11,8 @@ public class PlayerShoot : MonoBehaviour {
     private float ShootDelay = 2f;
     [SerializeField]
     private Transform FirePoint = null;
+    [SerializeField]
+    private LayerMask layerMask;
 
     private float timer;
     private PlayerHealth health;
@@ -27,14 +29,16 @@ public class PlayerShoot : MonoBehaviour {
 
     private void Update() {
         timer += Time.deltaTime;
+    }
 
-        if(CanShoot()) {
-            if(Input.GetButtonDown("Fire1")) {
-                timer = 0f;
-                // Bullets are player's health
-                health.TakeDamage(1);
-                FireGun();
-            }
+    private void OnShoot()
+    {
+        if (CanShoot())
+        {
+            timer = 0f;
+            // Bullets are player's health
+            health.TakeDamage(1);
+            FireGun();
         }
     }
 
@@ -50,7 +54,7 @@ public class PlayerShoot : MonoBehaviour {
         b.GetComponent<Rigidbody>().velocity = this.transform.forward * bulletSpeed;
 
         // Hit enemy
-        if(Physics.Raycast(ray, out hitInfo, 100)) {
+        if(Physics.Raycast(ray, out hitInfo, 100, layerMask)) {
             var enemy = hitInfo.collider.gameObject.GetComponent<EnemyHealth>();
             if (enemy != null) {
                 enemy.TakeDamage(Damage);
