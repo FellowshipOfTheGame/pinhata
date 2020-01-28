@@ -48,4 +48,8 @@ public class PinhataAnimHandle : MonoBehaviour {
     public void Die(){
         anim.SetTrigger("die");
     }
+
+    public void TakeHit(){
+        anim.SetTrigger("hit");
+    }
 }

@@ -37,7 +37,7 @@ public class PlayerShoot : MonoBehaviour {
         {
             timer = 0f;
             // Bullets are player's health
-            health.TakeDamage(1);
+            health.TakeDamage(1, false);
             FireGun();
         }
     }
@@ -49,14 +49,18 @@ public class PlayerShoot : MonoBehaviour {
         Ray ray = new Ray(FirePoint.position, FirePoint.forward);
         RaycastHit hitInfo;
 
-        GameObject b = Instantiate(bullet);
+        Projectile b = Instantiate(bullet).GetComponent<Projectile>();
         b.transform.position = FirePoint.position;
-        b.GetComponent<Rigidbody>().velocity = this.transform.forward * bulletSpeed;
+        b.generator = this.transform;
+        b.speed = FirePoint.forward * bulletSpeed * Time.deltaTime;
 
         // Hit enemy
         if(Physics.Raycast(ray, out hitInfo, 100, layerMask)) {
             var enemy = hitInfo.collider.gameObject.GetComponent<EnemyHealth>();
+            
+            b.target = hitInfo.point;
             if (enemy != null) {
+                
                 enemy.TakeDamage(Damage);
             }
         }

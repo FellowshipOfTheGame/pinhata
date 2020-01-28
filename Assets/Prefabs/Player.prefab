@@ -145,6 +145,7 @@ MonoBehaviour:
   TurnSpeed: 5
   movementInput: {x: 0, y: 0}
   rotationInput: {x: 0, y: 0}
+  canMove: 1
 --- !u!114 &6513837980596063030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,7 +164,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 1
-  bulletSpeed: 250
+  bulletSpeed: 200
   bullet: {fileID: 7335112553584817998, guid: 8d5b3b49e7d378641a50f7357494e1de, type: 3}
 --- !u!114 &1789368901
 MonoBehaviour:
@@ -229,7 +230,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6513837981789788790}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.4, z: 0}
+  m_LocalPosition: {x: 0, y: 0.383, z: 0.354}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6513837980596063028}
@@ -255,7 +256,7 @@ PrefabInstance:
     - target: {fileID: 1864971615038135801, guid: 3a04d88a6ac48754ca302e0a215893bd,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.77
+      value: -0.811
       objectReference: {fileID: 0}
     - target: {fileID: 1864971615038135801, guid: 3a04d88a6ac48754ca302e0a215893bd,
         type: 3}
