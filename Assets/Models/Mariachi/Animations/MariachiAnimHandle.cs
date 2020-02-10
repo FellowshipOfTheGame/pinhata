@@ -5,6 +5,7 @@ using UnityEngine;
 public class MariachiAnimHandle : MonoBehaviour {
 
     public Animator anim;
+    public ParticleSystem hitParticle;
 
     void Awake() {
 
@@ -49,6 +50,10 @@ public class MariachiAnimHandle : MonoBehaviour {
 
     public void Attack(){
         anim.SetTrigger("hit");
+    }
+
+    public void LandAttack(){
+        hitParticle.Play();
     }
 
     public void TakeDamage() {

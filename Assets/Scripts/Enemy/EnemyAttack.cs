@@ -67,6 +67,7 @@ public class EnemyAttack : MonoBehaviour {
     void DealDamage(){
         if (player != null && player.Alive()) {
             player.TakeDamage(Damage, true);
+            anim.LandAttack();
         }
     }
 
