@@ -8,6 +8,7 @@ public class EnemyMovement : MonoBehaviour {
     private NavMeshAgent navMesh;
     private GameObject player;
     private MariachiAnimHandle anim;
+    public Collider mainCollider;
     
     bool canMove = false;
 
@@ -16,7 +17,16 @@ public class EnemyMovement : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player");
         anim = GetComponentInChildren<MariachiAnimHandle>();
         anim.Spawn();
-        Invoke("Chase", 4.5f);
+        //Invoke("Chase", 4.5f);
+        mainCollider.enabled = false;
+        navMesh.enabled=false;
+    }
+
+    public void Activate(){
+        mainCollider.enabled = true;
+        navMesh.enabled = true;
+        this.GetComponent<EnemyHealth>().invincible = false;
+        Chase();
     }
 
     void Chase(){

@@ -16,9 +16,12 @@ public class EnemyHealth : MonoBehaviour {
 
     private int health;
 
+    public bool invincible;
+
     private void Awake() {
         health = MaxHealth;
         movement = GetComponent<EnemyMovement>();
+        invincible = true;
     }
 
     public bool Alive() {
@@ -41,14 +44,16 @@ public class EnemyHealth : MonoBehaviour {
     }
 
     public void TakeDamage(int damage) {
-        health -= damage;
+        if(!invincible){
+            health -= damage;
 
-        if (!Alive()) {
-            Drop();
-            Die();
-        }else{
-            movement.PauseMovement(1f);
-            GetComponentInChildren<MariachiAnimHandle>().TakeDamage();
+            if (!Alive()) {
+                Drop();
+                Die();
+            }else{
+                movement.PauseMovement(1f);
+                GetComponentInChildren<MariachiAnimHandle>().TakeDamage();
+            }
         }
     }
 }

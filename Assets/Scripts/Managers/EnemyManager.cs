@@ -7,7 +7,7 @@ public class EnemyManager : MonoBehaviour {
     [SerializeField]
     private GameObject EnemyPrefab = null;
     [SerializeField]
-    private Transform[] SpawnPoints = null;
+    private SpawnPoint[] SpawnPoints = null;
     [SerializeField]
     private int MinWaveSize = 5;
     [SerializeField]
@@ -50,9 +50,24 @@ public class EnemyManager : MonoBehaviour {
 
     private void Spawn() {
         int spawnPointIndex = Random.Range(0, SpawnPoints.Length);
-        Instantiate(EnemyPrefab, SpawnPoints[spawnPointIndex].position, SpawnPoints[spawnPointIndex].rotation);
-        spawned++;
-        timer = 0f;
+        if (SpawnPoints[spawnPointIndex].occuped){
+            int count = 1;
+            while(SpawnPoints[spawnPointIndex].occuped && count < SpawnPoints.Length){
+                spawnPointIndex++;
+                if(spawnPointIndex >= SpawnPoints.Length) spawnPointIndex = 0;
+                count++;
+            }
+
+            if(!SpawnPoints[spawnPointIndex].occuped){
+                SpawnPoints[spawnPointIndex].Spawn(EnemyPrefab);
+                spawned++;
+                timer = 0f;
+            }
+        }else{
+            SpawnPoints[spawnPointIndex].Spawn(EnemyPrefab);
+            spawned++;
+            timer = 0f;
+        }
     }
 
     public bool AreEnemiesAlive() {
