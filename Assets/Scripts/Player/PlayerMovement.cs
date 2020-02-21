@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField]
     private Vector2 rotationInput;
 
+    public bool canMove = true;
+
     private void OnMove(UnityEngine.InputSystem.InputValue value)
     {
         movementInput = value.Get<Vector2>();
@@ -27,7 +29,8 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void Update() {
-        Move();
+        if (canMove)
+            Move();
     }
 
     private void Move() {

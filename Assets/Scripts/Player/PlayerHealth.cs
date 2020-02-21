@@ -29,16 +29,19 @@ public class PlayerHealth : MonoBehaviour {
 
     private void Die() {
         invincible = true;
+        this.GetComponent<PlayerMovement>().canMove = false;
         Debug.Log("Player Dead");
         anim.Die();
         GameManager.Instance.Invoke("Reload", 3.0f);
 
     }
 
-    public void TakeDamage(int damage) {
+    public void TakeDamage(int damage, bool enemy) {
         if(!invincible){
         health -= damage;
-
+        if(enemy)
+            anim.TakeHit();
+            
         if (!Alive())
             Die();
 
