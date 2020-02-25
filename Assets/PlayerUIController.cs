@@ -7,19 +7,18 @@ using UnityEngine.SceneManagement;
 
 public class PlayerUIController : MonoBehaviour
 {
-    public event Action playerJoined;
-    public event Action playerCanceled;
+    public event Action playerStarted;
+    public event Action<GameObject> playerCanceled;
 
     void OnCancel()
     {
         Debug.Log("Cancel event");
-        playerCanceled?.Invoke();
-        SceneManager.LoadScene("PlayerScene");
+        playerCanceled?.Invoke(gameObject);
     }
 
     void OnJoin()
     {
-        Debug.Log("OnJoin event");
-        playerJoined?.Invoke();
+        Debug.Log("Start event");
+        playerStarted?.Invoke();
     }
 }

@@ -1,18 +1,27 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using UnityEngine.Windows;
 
 public class DeviceManager : MonoBehaviour
 {
-    [SerializeField]
-    private static int PlayerCount = 0;
-
-    [SerializeField]
+    //Statics
+    [HideInInspector]
     public static InputDevice[] PlayerDevices { get; } = new InputDevice[4];
 
+    private static int PlayerCount = 0;
+
+    //Events
+    public event Action<GameObject, int> playerJoined;
+    public event Action<GameObject, int> playerLeft;
+
     [SerializeField]
-    private GameObject playerPrefab;
+    private GameObject playerPrefab = null;
+
+    public bool IsLeavingScene { get;  set; } = false;
 
     public void InstantiatePlayers()
     {
@@ -30,17 +39,22 @@ public class DeviceManager : MonoBehaviour
 
     void OnPlayerJoined(PlayerInput playerInput)
     {
-        Debug.Log("Joined" + playerInput.playerIndex);
-        PlayerDevices[playerInput.playerIndex] = playerInput.devices[0];
+        int ind = playerInput.playerIndex;
+        Debug.Log("Joined" + ind);
+        PlayerDevices[ind] = playerInput.devices[0];
         PlayerCount++;
 
-        playerInput.gameObject.transform.Translate(Vector3.up * 10);
+        playerJoined?.Invoke(playerInput.gameObject, ind);
     }
 
-    /*void OnPlayerLeft(PlayerInput playerInput)
+    void OnPlayerLeft(PlayerInput playerInput)
     {
-        Debug.Log("Left" + playerInput.playerIndex);
-        PlayerDevices[playerInput.playerIndex] = null;
-        PlayerCount--;
-    }*/
+        if (IsLeavingScene) return;
+
+        int ind = playerInput.playerIndex;
+        playerLeft?.Invoke(playerInput.gameObject, ind);
+
+        PlayerDevices[ind] = null;
+        Debug.Log("Left" + ind);
+    }
 }
