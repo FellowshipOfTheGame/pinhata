@@ -14,12 +14,14 @@ public class UIPlayerHealth : MonoBehaviour
 
     private float MaxHealth;
 
-    private void Awake()
+    /**
+     * Setup player health
+     **/
+    public void Setup(GameObject player)
     {
         healthBar = GetComponent<Image>();
-        textMesh =  GetComponentInChildren<TextMeshProUGUI>();
-
-        playerHealth = FindObjectOfType<PlayerHealth>();
+        textMesh = GetComponentInChildren<TextMeshProUGUI>();
+        playerHealth = player.GetComponent<PlayerHealth>();
         playerHealth.onHealthChange += HealthChange;
         MaxHealth = playerHealth.MaxHealth;
     }
