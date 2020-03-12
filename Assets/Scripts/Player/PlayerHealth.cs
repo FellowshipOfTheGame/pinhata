@@ -10,6 +10,8 @@ public class PlayerHealth : MonoBehaviour {
     [SerializeField]
     public int MaxHealth = 20;
 
+    public AudioSource audioSource;
+
     private int health;
 
     private PinhataAnimHandle anim;
@@ -20,6 +22,7 @@ public class PlayerHealth : MonoBehaviour {
         health = MaxHealth;
         onHealthChange?.Invoke(health);
         anim = GetComponent<PlayerMovement>().playerAnim;
+        audioSource = GetComponent<AudioSource>();
         invincible = false;
     }
 
@@ -38,13 +41,13 @@ public class PlayerHealth : MonoBehaviour {
 
     public void TakeDamage(int damage, bool enemy) {
         if(!invincible){
-        health -= damage;
-        if(enemy)
-            anim.TakeHit();
-            
-        if (!Alive())
-            Die();
-
+            health -= damage;
+            if (enemy) {
+                anim.TakeHit();
+                SoundManager.Instance.PlayClip(Sounds.PlayerTakeDamage, audioSource);
+            }
+            if (!Alive())
+                Die();
         }
         onHealthChange?.Invoke(health);
     }

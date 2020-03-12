@@ -6,15 +6,18 @@ using UnityEngine.AI;
 public class EnemyMovement : MonoBehaviour {
 
     private NavMeshAgent navMesh;
-    private GameObject player;
+    private GameObject[] players;
     private MariachiAnimHandle anim;
     public Collider mainCollider;
     
     bool canMove = false;
 
-    private void Awake() {
+    private void Start() {
         navMesh = GetComponent<NavMeshAgent>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        players = GameManager.Instance.players;//GameObject.FindGameObjectWithTag("Player");
+        Debug.Log(players.Length);
+        Debug.Log(GameManager.Instance.players.Length);
+
         anim = GetComponentInChildren<MariachiAnimHandle>();
         anim.Spawn();
         //Invoke("Chase", 4.5f);
@@ -46,8 +49,19 @@ public class EnemyMovement : MonoBehaviour {
     }
 
     private void Move() {
-        if (player != null) {
-            navMesh.SetDestination(player.transform.position);
+        if (players != null) {
+            int closestPlayer = 0;
+            float distance = Vector3.Distance(this.transform.position, players[0].transform.position);
+            for(int i = 1; i < players.Length; i++)
+            {
+                float current_distance = Vector3.Distance(this.transform.position, players[i].transform.position);
+                if (current_distance < distance)
+                {
+                    closestPlayer = i;
+                    distance = current_distance;
+                }
+            }
+            navMesh.SetDestination(players[closestPlayer].transform.position);
             anim.Move(navMesh.velocity);
         }
         else {

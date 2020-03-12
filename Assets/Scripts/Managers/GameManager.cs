@@ -1,17 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
     [SerializeField]
     private float TimeBetweenWaves = 3f;
+    [SerializeField]
+    private UIPlayerHealth[] UIPlayerHealth;
 
     public static GameManager Instance;
 
     public CameraFollowComponent cameraFollow;
-    private Transform playerTransform;
+    public GameObject[] players;
 
     private int level;
     private bool startSpawn;
@@ -25,9 +28,25 @@ public class GameManager : MonoBehaviour {
         startSpawn = false;
         level = 0;
 
-        playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        //Instantiate players
+        FindObjectOfType<DeviceManager>().InstantiatePlayers();
+
+        //Enable and setup Health UI
+        players = GameObject.FindGameObjectsWithTag("Player");
+        
+        for(int i = 0; i < players.Length; i++)
+        {
+            UIPlayerHealth[i].Setup(players[i]);
+            UIPlayerHealth[i].transform.parent.gameObject.SetActive(true);
+            //Set ActionMap
+            players[i].GetComponent<PlayerInput>().SwitchCurrentActionMap("Player Controls");
+        }
+
+
         //Camera Follow Setup
-        cameraFollow.Setup(() => playerTransform.position);
+        cameraFollow.Setup(() => players[0].transform.position);
+        
+        Debug.Log(players.Length);
     }
 
     private void Update() {
