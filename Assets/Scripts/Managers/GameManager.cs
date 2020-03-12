@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour {
     public CameraFollowComponent cameraFollow;
     public GameObject[] players;
 
+    public GameObject pausePanel;
+
     private int level;
     private bool startSpawn;
     private float timer;
@@ -69,5 +71,15 @@ public class GameManager : MonoBehaviour {
 
     public void Reload() {
         SceneManager.LoadScene(0);
+    }
+
+    public void PauseGame() {
+        Time.timeScale = 0;
+        pausePanel.SetActive(true);
+    }
+
+    public void ContinueGame() {
+        Time.timeScale = 1;
+        pausePanel.SetActive(false);
     }
 }
