@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3971312225229464190}
   - component: {fileID: 3971312225229464191}
+  - component: {fileID: 410808084}
   m_Layer: 0
   m_Name: DevicesManager
   m_TagString: Untagged
@@ -25,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3971312225229464188}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.22757244, y: 1.7217112, z: -0.68848467}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -44,9 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NotificationBehavior: 0
-  m_MaxPlayerCount: 1
+  m_MaxPlayerCount: 4
   m_AllowJoining: 1
-  m_JoinBehavior: 0
+  m_JoinBehavior: 1
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -62,8 +63,24 @@ MonoBehaviour:
       m_Id: 1670833c-10c4-4726-bbfb-5a0df7af5332
       m_Processors: 
       m_Interactions: 
-      m_SingletonActionBindings: []
-    m_Reference: {fileID: 697313810905329082, guid: 9d1446e055aef8f4eb3a6d1dbb04a880,
+      m_SingletonActionBindings:
+      - m_Name: 
+        m_Id: 99e6397d-c7e2-447e-8ef8-ecce9633912d
+        m_Path: <Keyboard>/space
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Action
+        m_Flags: 0
+      - m_Name: 
+        m_Id: 09bcfff4-0048-4125-ba9c-f6a7950593bd
+        m_Path: <Gamepad>/buttonSouth
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Action
+        m_Flags: 0
+    m_Reference: {fileID: -2834580438571245455, guid: 9d1446e055aef8f4eb3a6d1dbb04a880,
       type: 3}
   m_PlayerPrefab: {fileID: 6513837980596062415, guid: 967ffdd6d0d2e8a46bb5406890c7302b,
     type: 3}
@@ -76,3 +93,15 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &410808084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3971312225229464188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eea78486a925ec741b5e340fe0b481f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
