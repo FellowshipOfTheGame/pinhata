@@ -70,15 +70,15 @@ public class GameManager : MonoBehaviour {
     }
 
     public void Reload() {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Stats");
     }
 
-    public void PauseGame() {
+    public void Pause() {
         Time.timeScale = 0;
         pausePanel.SetActive(true);
     }
 
-    public void ContinueGame() {
+    public void Continue() {
         Time.timeScale = 1;
         pausePanel.SetActive(false);
     }
