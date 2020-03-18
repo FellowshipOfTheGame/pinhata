@@ -29,7 +29,11 @@ public class GameManager : MonoBehaviour {
         level = 0;
 
         //Instantiate players
-        FindObjectOfType<DeviceManager>().InstantiatePlayers();
+        if (!FindObjectOfType<DeviceManager>().InstantiatePlayers())
+        {
+            Debug.Log("Loading Error, NOT ENOUGH PLAYERS!");
+            return;
+        }
 
         //Enable and setup Health UI
         players = GameObject.FindGameObjectsWithTag("Player");

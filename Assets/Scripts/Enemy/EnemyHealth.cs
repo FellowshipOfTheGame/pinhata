@@ -48,7 +48,7 @@ public class EnemyHealth : MonoBehaviour {
     public void TakeDamage(int damage) {
         if(!invincible){
             health -= damage;
-            SoundManager.Instance.PlayClip(Sounds.EnemyTakeDamage);
+            //SoundManager.Instance.PlayClip(Sounds.EnemyTakeDamage);
 
             if (!Alive()) {
                 Drop();

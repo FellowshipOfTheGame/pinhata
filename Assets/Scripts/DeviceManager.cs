@@ -9,7 +9,7 @@ using UnityEngine.Windows;
 public class DeviceManager : MonoBehaviour
 {
     //Statics
-    [HideInInspector]
+    //[HideInInspector]
     public static InputDevice[] PlayerDevices { get; } = new InputDevice[4];
 
     private static int PlayerCount = 0;
@@ -23,8 +23,10 @@ public class DeviceManager : MonoBehaviour
 
     public bool IsLeavingScene { get;  set; } = false;
 
-    public void InstantiatePlayers()
+    public bool InstantiatePlayers()
     {
+        //Debug.Log("Calling InstantiatePlayers");
+        int joined_players = 0;
         for(int i = 0; i < 4; i++)
         {
             if(PlayerDevices[i] != null)
@@ -32,15 +34,16 @@ public class DeviceManager : MonoBehaviour
                 PlayerInputManager pm = GetComponent<PlayerInputManager>();
                 pm.playerPrefab = playerPrefab;
                 pm.JoinPlayer(pairWithDevice: PlayerDevices[i]);
-                Debug.Log("Joining player");
+                joined_players++;
             }
         }
+        return joined_players > 0;
     }
 
     void OnPlayerJoined(PlayerInput playerInput)
     {
         int ind = playerInput.playerIndex;
-        Debug.Log("Joined" + ind);
+        //Debug.Log("Joined" + ind);
         PlayerDevices[ind] = playerInput.devices[0];
         PlayerCount++;
 
@@ -55,6 +58,6 @@ public class DeviceManager : MonoBehaviour
         playerLeft?.Invoke(playerInput.gameObject, ind);
 
         PlayerDevices[ind] = null;
-        Debug.Log("Left" + ind);
+        //Debug.Log("Left" + ind);
     }
 }
