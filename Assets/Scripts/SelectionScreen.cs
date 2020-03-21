@@ -9,18 +9,19 @@ public class SelectionScreen : MonoBehaviour
     [SerializeField]
     private GameObject[] spawnLocations = new GameObject[4];
     private DeviceManager deviceManager;
-    private PlayerUIController[] players;
+    private List<PlayerUIController> players;
 
     private void Awake()
     {
-        players = new PlayerUIController[4];
+        players = new List<PlayerUIController>();
+        players.Capacity = 4;
         deviceManager = GetComponent<DeviceManager>();
-        deviceManager.playerJoined += OnPlayerJoin;
-        deviceManager.playerLeft += OnPlayerLeft;
+        deviceManager.playerJoined += PlayerJoined;
+        deviceManager.playerLeft += PlayerLeft;
     }
 
 
-    private void OnPlayerJoin(GameObject player, int index)
+    private void PlayerJoined(GameObject player, int index)
     {
         player.GetComponent<Rigidbody>().isKinematic = true;
 
@@ -28,32 +29,38 @@ public class SelectionScreen : MonoBehaviour
         {
             spawnLocations[index].SetActive(true);
         }
-
-        players[index] = player.GetComponent<PlayerUIController>();
-        players[index].playerStarted += OnPlayerStarted;
+        
+        players.Insert(index, player.GetComponent<PlayerUIController>());
         players[index].playerCanceled += OnPlayerCanceled;
+        //players[index] = player.GetComponent<PlayerUIController>();
     }
 
     private void OnPlayerCanceled(GameObject player)
     {
-        Destroy(player, 0.5f);
+        player.SetActive(false);
+        Destroy(player, 0.2f);
     }
 
-    private void OnPlayerStarted()
-    {
-        SceneManager.LoadScene("PlayerScene");
-    }
-
-    private void OnPlayerLeft(GameObject player, int index)
+    private void PlayerLeft(GameObject player, int index)
     {
         if (spawnLocations[index] != null)
         {
             spawnLocations[index].SetActive(false);
         }
-
-        players[index].playerStarted -= OnPlayerStarted;
+        
         players[index].playerCanceled -= OnPlayerCanceled;
-        players[index] = null;
+        players.RemoveAt(index);
+        //players[index] = null;
+    }
+
+    public void LoadNextScene()
+    {
+        if (players.Count > 0)
+        {
+            deviceManager.IsLeavingScene = true;
+            SceneManager.LoadScene("PlayerScene");
+        }
+        else Debug.Log("Not enough players");
     }
 
     
