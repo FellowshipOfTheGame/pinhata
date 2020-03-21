@@ -58,6 +58,15 @@ public class DeviceManager : MonoBehaviour
         playerLeft?.Invoke(playerInput.gameObject, ind);
 
         PlayerDevices[ind] = null;
-        //Debug.Log("Left" + ind);
+        Debug.Log("Left" + ind);
+    }
+
+    public static void Reload()
+    {
+        for(int i = 0; i < PlayerDevices.Length; i++)
+        {
+            PlayerDevices[i] = null;
+        }
+        Debug.Log("Reloading DeviceManager");
     }
 }
