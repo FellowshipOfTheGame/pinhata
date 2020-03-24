@@ -35,8 +35,8 @@ public class PlayerHealth : MonoBehaviour {
         this.GetComponent<PlayerMovement>().canMove = false;
         Debug.Log("Player Dead");
         anim.Die();
-        GameManager.Instance.Invoke("Reload", 3.0f);
-
+        Destroy(gameObject, 3f);
+        GameManager.Instance.Invoke("OnPlayerDeath", 3f);
     }
 
     public void TakeDamage(int damage, bool enemy) {
@@ -44,7 +44,7 @@ public class PlayerHealth : MonoBehaviour {
             health -= damage;
             if (enemy) {
                 anim.TakeHit();
-                SoundManager.Instance.PlayClip(Sounds.PlayerTakeDamage, audioSource);
+                //SoundManager.Instance.PlayClip(Sounds.PlayerTakeDamage, audioSource);
             }
             if (!Alive())
                 Die();

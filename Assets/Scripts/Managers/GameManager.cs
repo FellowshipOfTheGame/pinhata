@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,8 +17,7 @@ public class GameManager : MonoBehaviour {
     public CameraFollowComponent cameraFollow;
     public GameObject[] players;
 
-    public GameObject pausePanel;
-
+    private int players_alive_count;
     private int level;
     private bool startSpawn;
     private float timer;
@@ -26,15 +26,22 @@ public class GameManager : MonoBehaviour {
         if (Instance == null)
             Instance = this;
 
+        players_alive_count = 0;
         timer = 0f;
         startSpawn = false;
         level = 0;
 
         //Instantiate players
-        FindObjectOfType<DeviceManager>().InstantiatePlayers();
+        if (!FindObjectOfType<DeviceManager>().InstantiatePlayers())
+        {
+            Debug.Log("Loading Error, NOT ENOUGH PLAYERS!");
+            return;
+        }
 
         //Enable and setup Health UI
         players = GameObject.FindGameObjectsWithTag("Player");
+        //Set alive count
+        players_alive_count = players.Length;
         
         for(int i = 0; i < players.Length; i++)
         {
@@ -44,11 +51,15 @@ public class GameManager : MonoBehaviour {
             players[i].GetComponent<PlayerInput>().SwitchCurrentActionMap("Player Controls");
         }
 
-
         //Camera Follow Setup
-        cameraFollow.Setup(() => players[0].transform.position);
+        CameraFollowSetup(0);
         
         Debug.Log(players.Length);
+    }
+
+    private void CameraFollowSetup(int index)
+    {
+        cameraFollow.Setup(() => players[index] != null ? players[index].transform.position : Vector3.zero);
     }
 
     private void Update() {
@@ -69,17 +80,25 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public void OnPlayerDeath()
+    {
+        players_alive_count--;
+
+        if (players_alive_count <= 0)
+            Reload();
+
+        //Mudar jogador sendo seguido pela camera
+        for(int i = 0; i < players.Length; i++){
+            if (players[i] == null) continue;
+            if (players[i].activeSelf){
+                CameraFollowSetup(i);
+                break;
+            }
+        }
+    }
+
     public void Reload() {
-        SceneManager.LoadScene("Stats");
-    }
-
-    public void Pause() {
-        Time.timeScale = 0;
-        pausePanel.SetActive(true);
-    }
-
-    public void Continue() {
-        Time.timeScale = 1;
-        pausePanel.SetActive(false);
+        DeviceManager.Reload();
+        SceneManager.LoadScene(0);
     }
 }
