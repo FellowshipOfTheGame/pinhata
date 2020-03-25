@@ -10,13 +10,6 @@ public class SpawnPoint : MonoBehaviour {
     public bool occuped = false;
 
     EnemyMovement enemy = null;
-
-    // Start is called before the first frame update
-    void Start(){
-        
-    }
-
-    // Update is called once per frame
     void Update(){
         if (occuped){
             timer += Time.deltaTime;

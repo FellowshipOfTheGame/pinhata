@@ -15,8 +15,8 @@ public class EnemyMovement : MonoBehaviour {
     private void Start() {
         navMesh = GetComponent<NavMeshAgent>();
         players = GameManager.Instance.players;//GameObject.FindGameObjectWithTag("Player");
-        Debug.Log(players.Length);
-        Debug.Log(GameManager.Instance.players.Length);
+        //Debug.Log(players.Length);
+        //Debug.Log(GameManager.Instance.players.Length);
 
         anim = GetComponentInChildren<MariachiAnimHandle>();
         anim.Spawn();

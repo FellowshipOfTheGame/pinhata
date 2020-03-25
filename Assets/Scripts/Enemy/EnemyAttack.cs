@@ -56,13 +56,13 @@ public class EnemyAttack : MonoBehaviour {
 
     void Punch(){
         if (player != null) {
-                timer = 0f;
-                movement.PauseMovement(0.84f);
-                anim.Attack();
-                //SoundManager.Instance.PlayClip(Sounds.EnemyAttack, health.audioSource);
-                //player.TakeDamage(Damage);
-                Invoke("DealDamage", 0.25f);
-            }
+            timer = 0f;
+            movement.PauseMovement(0.84f);
+            anim.Attack();
+            //SoundManager.Instance.PlayClip(Sounds.EnemyAttack, health.audioSource);
+            //player.TakeDamage(Damage);
+            Invoke("DealDamage", 0.25f);
+        }
     }
 
     void DealDamage(){

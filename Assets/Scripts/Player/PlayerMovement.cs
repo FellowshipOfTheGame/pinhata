@@ -28,6 +28,10 @@ public class PlayerMovement : MonoBehaviour {
         rotationInput = value.Get<Vector2>();
     }
 
+    void OnPause() {
+        Debug.Log("Pause Player");
+    }
+
     private void Update() {
         if (canMove)
             Move();
