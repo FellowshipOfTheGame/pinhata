@@ -15,8 +15,8 @@ public class EnemyMovement : MonoBehaviour {
     private void Start() {
         navMesh = GetComponent<NavMeshAgent>();
         players = GameManager.Instance.players;//GameObject.FindGameObjectWithTag("Player");
-        Debug.Log(players.Length);
-        Debug.Log(GameManager.Instance.players.Length);
+        //Debug.Log(players.Length);
+        //Debug.Log(GameManager.Instance.players.Length);
 
         anim = GetComponentInChildren<MariachiAnimHandle>();
         anim.Spawn();
@@ -34,13 +34,15 @@ public class EnemyMovement : MonoBehaviour {
 
     void Chase(){
         canMove = true;
-        navMesh.Resume();
+        //navMesh.Resume();
+        navMesh.isStopped = false;
     }
 
     public void PauseMovement(float time){
         canMove = false;
         Invoke("Chase", time);
-        navMesh.Stop();
+        //navMesh.Stop();
+        navMesh.isStopped = true;
     }
 
     private void Update() {
@@ -51,9 +53,10 @@ public class EnemyMovement : MonoBehaviour {
     private void Move() {
         if (players != null) {
             int closestPlayer = 0;
-            float distance = Vector3.Distance(this.transform.position, players[0].transform.position);
+            float distance = Mathf.Infinity;//Vector3.Distance(this.transform.position, players[0].transform.position);
             for(int i = 1; i < players.Length; i++)
             {
+                if (players[i] == null) continue;
                 float current_distance = Vector3.Distance(this.transform.position, players[i].transform.position);
                 if (current_distance < distance)
                 {
