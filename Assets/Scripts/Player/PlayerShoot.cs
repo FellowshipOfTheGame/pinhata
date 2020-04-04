@@ -39,7 +39,7 @@ public class PlayerShoot : MonoBehaviour {
             // Bullets are player's health
             health.TakeDamage(1, false);
             FireGun();
-            //SoundManager.Instance.PlayClip(Sounds.PlayerAttack_1, health.audioSource);
+            SoundManager.Instance.PlayClip(Sounds.PlayerAttack_1, health.audioSource);
         }
     }
 

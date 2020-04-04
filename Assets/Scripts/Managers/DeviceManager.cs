@@ -21,19 +21,21 @@ public class DeviceManager : MonoBehaviour
     [SerializeField]
     private GameObject playerPrefab = null;
 
+    public Vector3[] spawnPositions;
     public bool IsLeavingScene { get;  set; } = false;
 
     public bool InstantiatePlayers()
     {
         //Debug.Log("Calling InstantiatePlayers");
         int joined_players = 0;
+        Vector3 pos = Vector3.zero;
         for(int i = 0; i < 4; i++)
         {
             if(PlayerDevices[i] != null)
             {
                 PlayerInputManager pm = GetComponent<PlayerInputManager>();
                 pm.playerPrefab = playerPrefab;
-                pm.JoinPlayer(pairWithDevice: PlayerDevices[i]);
+                pm.JoinPlayer(pairWithDevice: PlayerDevices[i]).transform.position = spawnPositions[i];
                 joined_players++;
             }
         }

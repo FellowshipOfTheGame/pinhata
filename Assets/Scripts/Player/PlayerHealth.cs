@@ -44,7 +44,7 @@ public class PlayerHealth : MonoBehaviour {
             health -= damage;
             if (enemy) {
                 anim.TakeHit();
-                //SoundManager.Instance.PlayClip(Sounds.PlayerTakeDamage, audioSource);
+                SoundManager.Instance.PlayClip(Sounds.PlayerTakeDamage, audioSource);
             }
             if (!Alive())
                 Die();
