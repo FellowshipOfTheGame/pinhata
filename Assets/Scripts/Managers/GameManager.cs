@@ -15,10 +15,13 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance;
 
-    public CameraFollowComponent cameraFollow;
+    //public CameraFollowComponent cameraFollow;
     public GameObject[] players;
+    public GameObject[] cameras;
 
+    public GameObject camera_prefab;
     public GameObject pausePanel;
+
 
     private int players_alive_count;
     private int level;
@@ -42,24 +45,25 @@ public class GameManager : MonoBehaviour
 
         //Enable and setup Health UI
         players = GameObject.FindGameObjectsWithTag("Player");
+        cameras = new GameObject[players.Length];
         //Set alive count
         players_alive_count = players.Length;
 
         for (int i = 0; i < players.Length; i++) {
-            UIPlayerHealth[i].Setup(players[i]);
+            GameObject p = players[i];
+            //Set health UI
+            UIPlayerHealth[i].Setup(p);
             UIPlayerHealth[i].transform.parent.gameObject.SetActive(true);
+            //Setup Camera Follow
+            GameObject cam = Instantiate(camera_prefab);
+            cameras[i] = cam;
+            cam.GetComponent<CameraFollowComponent>().Setup(() => p.transform.position);
             //Set ActionMap
-            players[i].GetComponent<PlayerInput>().SwitchCurrentActionMap("Player Controls");
+            p.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player Controls");
+            p.GetComponent<PlayerInput>().camera = cam.GetComponent<Camera>();
         }
-
-        //Camera Follow Setup
-        CameraFollowSetup(0);
-
+        ReajustCameras();
         //Debug.Log(players.Length);
-    }
-
-    private void CameraFollowSetup(int index) {
-        cameraFollow.Setup(() => players[index] != null ? players[index].transform.position : Vector3.zero);
     }
 
     private void Update() {
@@ -84,15 +88,72 @@ public class GameManager : MonoBehaviour
         players_alive_count--;
 
         if (players_alive_count <= 0)
+        {
             Reload();
-
-        //Mudar jogador sendo seguido pela camera
-        for (int i = 0; i < players.Length; i++) {
-            if (players[i] == null) continue;
-            if (players[i].activeSelf) {
-                CameraFollowSetup(i);
-                break;
+            return;
+        }
+        //Destruir camera associada ao player morto
+        for(int i = 0; i < players.Length; i++)
+        {
+            if(players[i] == null && cameras[i] != null)
+            {
+                Destroy(cameras[i]);
+                UIPlayerHealth[i].transform.parent.gameObject.SetActive(false);
             }
+        }
+        ReajustCameras();
+    }
+
+    void ReajustCameras()
+    {
+        int c = 0;
+        switch (players_alive_count)
+        {
+            case 1:
+                for (int i = 0; i < cameras.Length; i++)
+                {
+                    if(players[i] != null && cameras[i] != null)
+                    {
+                        cameras[i].GetComponent<Camera>().rect = new Rect(0f, 0f, 1f, 1f);
+                    }
+                }
+                break;
+            case 2:
+                c = 0;
+                for (int i = 0; i < cameras.Length; i++)
+                {
+                    if (players[i] != null && cameras[i] != null)
+                    {
+                        if (c == 0)
+                            cameras[i].GetComponent<Camera>().rect = new Rect(0f, 0f, .5f, 1f);
+                        else
+                            cameras[i].GetComponent<Camera>().rect = new Rect(.5f, 0f, .5f, 1f);
+                        c++;
+                    }
+                }
+                break;
+            case 3:
+                c = 0;
+                for (int i = 0; i < cameras.Length; i++)
+                {
+                    if (players[i] != null && cameras[i] != null)
+                    {
+                        if (c == 0)
+                            cameras[i].GetComponent<Camera>().rect = new Rect(0f, 0.5f, .5f, .5f);
+                        else if(c == 1)
+                            cameras[i].GetComponent<Camera>().rect = new Rect(0.5f, 0.5f, .5f, .5f);
+                        else if(c == 2)
+                            cameras[i].GetComponent<Camera>().rect = new Rect(0f, 0f, 1f, .5f);
+                        c++;
+                    }
+                }
+                break;
+            case 4:
+                cameras[0].GetComponent<Camera>().rect = new Rect(0.0f, 0.5f, .5f, .5f);
+                cameras[1].GetComponent<Camera>().rect = new Rect(0.5f, 0.5f, .5f, .5f);
+                cameras[2].GetComponent<Camera>().rect = new Rect(0.0f, 0.0f, .5f, .5f);
+                cameras[3].GetComponent<Camera>().rect = new Rect(0.5f, 0.0f, .5f, .5f);
+                break;
         }
     }
 

@@ -44,4 +44,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimeBetweenWaves: 3
-  cameraFollow: {fileID: 0}
+  UIPlayerHealth: []
+  players: []
+  camera_prefab: {fileID: 3197973999760445718, guid: 80df664285b75a947bfeeae994f5d6b3,
+    type: 3}
+  pausePanel: {fileID: 6648975739413156510, guid: 0cd20bbd9b38bb944b9e028b14ac2e87,
+    type: 3}
