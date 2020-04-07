@@ -7,15 +7,35 @@ public class PinhataAnimHandle : MonoBehaviour {
     public int dirNumber;
     int lastDir = -1;
     Animator anim;
+    public SkinnedMeshRenderer mesh;
+    public Material[] blueMats, orangeMats, purpleMats, greenMats;
 
     // Start is called before the first frame update
     void Awake() {
         anim = this.GetComponent<Animator>();
     }
 
+    public void changeMat(int index){
+        switch (index){
+            case 0:
+                mesh.materials = blueMats;
+                break;
+            case 1:
+                mesh.materials = orangeMats;
+                break;
+            case 2:
+                mesh.materials = purpleMats;
+                break;
+            case 3:
+                mesh.materials = greenMats;
+                break;
+        }
+        //Debug.Log("MUDOU!");
+    }
+
     // Update is called once per frame
     void Update() {
-        
+    
     }
 
     public void Move(Vector3 direction){

@@ -3713,8 +3713,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1566032474294675591, guid: a91f122b3be2cd5478bec638da0b9cf2,
         type: 3}
+      propertyPath: musics.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1566032474294675591, guid: a91f122b3be2cd5478bec638da0b9cf2,
+        type: 3}
       propertyPath: Volume
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1566032474294675591, guid: a91f122b3be2cd5478bec638da0b9cf2,
+        type: 3}
+      propertyPath: musics.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 3bb251ac9ef95ae4d9f0f9bea8776d33, type: 3}
+    - target: {fileID: 1566032474294675591, guid: a91f122b3be2cd5478bec638da0b9cf2,
+        type: 3}
+      propertyPath: musics.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 17db324f925feb14c8625ffa3514ad99, type: 3}
+    - target: {fileID: 1566032474294675593, guid: a91f122b3be2cd5478bec638da0b9cf2,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a91f122b3be2cd5478bec638da0b9cf2, type: 3}
@@ -7775,6 +7795,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 974591174500304900, guid: d1a4ccfd39826f54c89eb5dde57aa390,
+        type: 3}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
     - target: {fileID: 974591174500304901, guid: d1a4ccfd39826f54c89eb5dde57aa390,
         type: 3}
       propertyPath: UIPlayerHealth.Array.size
@@ -7829,11 +7854,6 @@ PrefabInstance:
         type: 3}
       propertyPath: pausePanel
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 974591174500304900, guid: d1a4ccfd39826f54c89eb5dde57aa390,
-        type: 3}
-      propertyPath: m_Name
-      value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 974591174500304902, guid: d1a4ccfd39826f54c89eb5dde57aa390,
         type: 3}

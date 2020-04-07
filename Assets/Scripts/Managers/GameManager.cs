@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
             p.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player Controls");
             p.GetComponent<PlayerInput>().camera = cam.GetComponent<Camera>();
         }
+        if (SoundManager.Instance != null) SoundManager.Instance.PlayMusicLoop(0);
         ReajustCameras();
         //Debug.Log(players.Length);
     }

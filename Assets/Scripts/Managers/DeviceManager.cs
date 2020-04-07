@@ -35,7 +35,9 @@ public class DeviceManager : MonoBehaviour
             {
                 PlayerInputManager pm = GetComponent<PlayerInputManager>();
                 pm.playerPrefab = playerPrefab;
-                pm.JoinPlayer(pairWithDevice: PlayerDevices[i]).transform.position = spawnPositions[i];
+                GameObject playerInst = pm.JoinPlayer(pairWithDevice: PlayerDevices[i]).gameObject;
+                playerInst.transform.position = spawnPositions[i];
+                playerInst.GetComponent<PlayerMovement>().playerAnim.changeMat(i);
                 joined_players++;
             }
         }
@@ -45,6 +47,7 @@ public class DeviceManager : MonoBehaviour
     void OnPlayerJoined(PlayerInput playerInput)
     {
         int ind = playerInput.playerIndex;
+        playerInput.GetComponent<PlayerMovement>().playerAnim.changeMat(ind);
         //Debug.Log("Joined" + ind);
         PlayerDevices[ind] = playerInput.devices[0];
         PlayerCount++;

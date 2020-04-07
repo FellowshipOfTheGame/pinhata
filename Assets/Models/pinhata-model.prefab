@@ -707,6 +707,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dirNumber: 8
+  mesh: {fileID: 5364562838648745045}
+  blueMats:
+  - {fileID: 2100000, guid: 1246dfbea7d2b4f4f9cf0937be623fda, type: 2}
+  - {fileID: 2100000, guid: 6143e81ed552a5241947a8276fad702d, type: 2}
+  orangeMats:
+  - {fileID: 2100000, guid: 9d74a8e5b11d5a14cb4cb5e2cf27b515, type: 2}
+  - {fileID: 2100000, guid: 937a2586bdb355341ab33b26bfc513e6, type: 2}
+  purpleMats:
+  - {fileID: 2100000, guid: aeab631adfb46184188adce7a0f27942, type: 2}
+  - {fileID: 2100000, guid: 4fe4e230518516c419c402eb3e1500e6, type: 2}
+  greenMats:
+  - {fileID: 2100000, guid: cb173b9ec6e25394b807e0d994b7cedf, type: 2}
+  - {fileID: 2100000, guid: 03278ecf19ee90e4e99fd7317c8b5d3d, type: 2}
 --- !u!1 &3791017328547740359
 GameObject:
   m_ObjectHideFlags: 0

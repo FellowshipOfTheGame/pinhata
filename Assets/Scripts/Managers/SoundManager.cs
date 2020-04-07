@@ -37,6 +37,7 @@ public class SoundManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this);
+            PlayMusicLoop(0);
         }
         else
         {
@@ -56,6 +57,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlayMusic(Music music)
     {
+        musicSource.loop = false;
         musicSource.PlayOneShot(musics[(int)music], Volume);
     }
 
@@ -64,4 +66,9 @@ public class SoundManager : MonoBehaviour
         Volume = value;
     }
 
+    public void PlayMusicLoop(Music music){
+        musicSource.clip = musics[(int)music];
+        musicSource.loop = true;
+        musicSource.Play();
+    }
 }
